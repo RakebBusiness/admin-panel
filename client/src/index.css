@@ -1,3 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --brand:       #FF6D1F;
+    --brand-dark:  #E05C00;
+    --brand-light: #FF8C42;
+    --brand-pale:  #FFF3EE;
+    --sidebar-bg:  #1A1A1A;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar        { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track  { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb  { @apply bg-gray-300 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-gray-400; }
+}
+
+@layer components {
+  /* Reusable brand button */
+  .btn-brand {
+    @apply inline-flex items-center gap-2 bg-brand text-white font-semibold
+           px-4 py-2.5 rounded-xl transition-all duration-150
+           hover:bg-brand-dark active:scale-95 disabled:opacity-50
+           disabled:cursor-not-allowed shadow-brand;
+  }
+
+  /* Standard outline button */
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border border-gray-200 bg-white
+           text-gray-700 font-medium px-4 py-2.5 rounded-xl transition-all
+           duration-150 hover:bg-gray-50 active:scale-95;
+  }
+
+  /* Danger button */
+  .btn-danger {
+    @apply inline-flex items-center gap-2 bg-red-500 text-white font-semibold
+           px-4 py-2.5 rounded-xl transition-all duration-150
+           hover:bg-red-600 active:scale-95 disabled:opacity-50;
+  }
+
+  /* Standard form input */
+  .input-field {
+    @apply w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm
+           bg-white text-gray-900 placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-brand/30
+           focus:border-brand transition-all duration-150;
+  }
+
+  /* Card surface */
+  .card {
+    @apply bg-white rounded-card border border-gray-100 shadow-card;
+  }
+}

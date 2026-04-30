@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Bike, Mail, Lock, LogIn } from 'lucide-react';
+import { Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import casqueWhite from '../../assets/casque-white.svg';
 
 const LoginForm: React.FC = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { login } = useAuth();
@@ -15,10 +13,9 @@ const LoginForm: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-
     try {
       await login(formData.email, formData.password);
-    } catch (error) {
+    } catch {
       setError('Email ou mot de passe incorrect');
     } finally {
       setLoading(false);
@@ -27,91 +24,98 @@ const LoginForm: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center">
-          <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Bike className="w-8 h-8 text-white" />
+    <div className="min-h-screen bg-sidebar flex items-center justify-center p-4">
+      {/* Background texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,109,31,0.08)_0%,transparent_60%)] pointer-events-none" />
+
+      <div className="relative w-full max-w-sm">
+        {/* Brand header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand/10 mb-4">
+            <img src={casqueWhite} alt="Rydz" className="w-9 h-9 object-contain" />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2">VTC Moto</h1>
-          <p className="text-blue-100">Panneau d'Administration</p>
+          <div>
+            <span className="text-brand font-extrabold text-3xl tracking-tight">rydz</span>
+          </div>
+          <p className="text-gray-400 text-sm mt-1 font-medium">Panneau d'Administration</p>
         </div>
 
-        <div className="p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Card */}
+        <div className="bg-[#242424] rounded-2xl border border-[#333] shadow-2xl p-8">
+          <h2 className="text-white font-semibold text-lg mb-6">Connexion</h2>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs font-medium text-gray-400 mb-1.5 uppercase tracking-wider">
                 Email
               </label>
               <div className="relative">
-                <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="admin@vtcmoto.com"
+                  className="w-full pl-9 pr-4 py-3 bg-[#1A1A1A] border border-[#333] rounded-xl text-white placeholder-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand transition-all"
+                  placeholder="admin@rydz.dz"
                 />
               </div>
             </div>
 
+            {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs font-medium text-gray-400 mb-1.5 uppercase tracking-wider">
                 Mot de passe
               </label>
               <div className="relative">
-                <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="password"
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full pl-9 pr-4 py-3 bg-[#1A1A1A] border border-[#333] rounded-xl text-white placeholder-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand transition-all"
                   placeholder="••••••••"
                 />
               </div>
             </div>
 
+            {/* Error */}
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                <p className="text-red-600 text-sm">{error}</p>
+              <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-xl px-3 py-2.5">
+                <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                <p className="text-red-400 text-sm">{error}</p>
               </div>
             )}
 
+            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              className="w-full bg-brand hover:bg-brand-dark text-white py-3 rounded-xl font-semibold text-sm transition-all duration-150 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2 shadow-brand"
             >
               {loading ? (
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  <LogIn className="w-5 h-5 mr-2" />
+                  <LogIn className="w-4 h-4" />
                   Se connecter
                 </>
               )}
             </button>
           </form>
-
-          <div className="mt-6 text-center text-sm text-gray-600">
-            <p>Compte de test:</p>
-            <p className="font-mono text-xs bg-gray-100 p-2 rounded mt-2">
-              Email: admin@vtcmoto.com<br />
-              Mot de passe: admin123
-            </p>
-          </div>
         </div>
+
+        <p className="text-center text-gray-600 text-xs mt-6">
+          © {new Date().getFullYear()} Rydz — Tous droits réservés
+        </p>
       </div>
     </div>
   );

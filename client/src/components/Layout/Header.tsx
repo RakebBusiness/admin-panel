@@ -1,37 +1,21 @@
 import React from 'react';
-import { Bell, Search } from 'lucide-react';
+import { Bell } from 'lucide-react';
 
 interface HeaderProps {
   title: string;
-  subtitle?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
+const Header: React.FC<HeaderProps> = ({ title }) => {
   return (
-    <div className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-800">{title}</h1>
-          {subtitle && <p className="text-gray-600 mt-1">{subtitle}</p>}
-        </div>
-        
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Rechercher..."
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
-          
-          <div className="relative">
-            <Bell className="w-6 h-6 text-gray-600 cursor-pointer hover:text-blue-600 transition-colors" />
-            <span className="absolute -top-2 -right-2 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-              3
-            </span>
-          </div>
-        </div>
+    <div className="bg-white border-b border-gray-100 px-6 h-14 flex items-center justify-between flex-shrink-0">
+      <h1 className="text-base font-semibold text-gray-900 tracking-tight">{title}</h1>
+
+      <div className="flex items-center gap-3">
+        {/* Notification bell */}
+        <button className="relative w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors">
+          <Bell className="w-4.5 h-4.5 text-gray-500" style={{ width: '18px', height: '18px' }} />
+          <span className="absolute top-1 right-1 w-2 h-2 bg-brand rounded-full ring-2 ring-white" />
+        </button>
       </div>
     </div>
   );

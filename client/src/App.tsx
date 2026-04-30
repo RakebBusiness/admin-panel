@@ -17,8 +17,8 @@ const AppContent: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-sidebar flex items-center justify-center">
+        <div className="w-10 h-10 border-[3px] border-brand/20 border-t-brand rounded-full animate-spin" />
       </div>
     );
   }
@@ -47,23 +47,6 @@ const AppContent: React.FC = () => {
         return 'Gestion des Admins';
       default:
         return 'VTC Moto';
-    }
-  };
-
-  const getPageSubtitle = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return 'Vue d\'ensemble des performances de la plateforme';
-      case 'motards':
-        return 'Gérer les motards de votre flotte';
-      case 'motos':
-        return 'Gérer votre flotte de motos';
-      case 'clients':
-        return 'Gérer votre base de clients';
-      case 'gestion-courses':
-        return 'Afficher et gérer les courses enregistrées';
-      default:
-        return '';
     }
   };
 
@@ -112,11 +95,11 @@ const AppContent: React.FC = () => {
 };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-50">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header title={getPageTitle()} subtitle={getPageSubtitle()} />
+        <Header title={getPageTitle()} />
         
         <main className="flex-1 overflow-y-auto">
           {renderContent()}

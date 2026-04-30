@@ -95,11 +95,11 @@ const Dashboard: React.FC = () => {
       {
         label: 'Revenus (DZD)',
         data: revenueTimeline.map(d => d.revenue),
-        borderColor: '#4F46E5',
-        backgroundColor: 'rgba(79, 70, 229, 0.08)',
+        borderColor: '#FF6D1F',
+        backgroundColor: 'rgba(255,109,31,0.08)',
         borderWidth: 2.5,
         pointRadius: 3,
-        pointBackgroundColor: '#4F46E5',
+        pointBackgroundColor: '#FF6D1F',
         tension: 0.45,
         fill: true,
       },
@@ -119,7 +119,7 @@ const Dashboard: React.FC = () => {
       {
         label: 'Chauffeurs',
         data: registrations.map(d => d.motards),
-        backgroundColor: '#4F46E5',
+        backgroundColor: '#FF6D1F',
         borderRadius: 5,
         barPercentage: 0.65,
       },
@@ -128,18 +128,10 @@ const Dashboard: React.FC = () => {
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <div className="p-6 space-y-5 bg-gray-50 min-h-screen">
+    <div className="p-6 space-y-5 min-h-full">
 
-      {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Tableau de Bord</h1>
-          <p className="text-sm text-gray-500 mt-0.5">
-            Vue d'ensemble de votre plateforme VTC
-          </p>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2">
+      {/* ── Date range + refresh ───────────────────────────────────────────── */}
+      <div className="flex flex-wrap items-center gap-2 justify-end">
           <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-3 py-2 shadow-sm text-sm font-medium text-gray-700">
             <DatePicker
               selected={range[0]}
@@ -165,13 +157,12 @@ const Dashboard: React.FC = () => {
           <button
             onClick={refresh}
             disabled={loading}
-            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-colors disabled:opacity-60"
+            className="flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-brand transition-all duration-150 disabled:opacity-60 active:scale-95"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             Rafraîchir
           </button>
         </div>
-      </div>
 
       {/* ── KPI Row 1 – Primary ────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -179,7 +170,7 @@ const Dashboard: React.FC = () => {
           title="Courses Totales"
           value={stats?.total ?? 0}
           icon={Bike}
-          color="indigo"
+          color="brand"
           loading={loading}
         />
         <KpiCard
@@ -245,7 +236,7 @@ const Dashboard: React.FC = () => {
           title="Distance Moy."
           value={stats?.avgDistance ?? 0}
           icon={Route}
-          color="indigo"
+          color="brand"
           suffix=" km"
           decimals={1}
           loading={loading}
@@ -375,7 +366,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* ── Recent Courses Table ──────────────────────────────────────────── */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-card border border-gray-100 shadow-card overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
           <div>
             <h3 className="text-sm font-bold text-gray-900">Courses Récentes</h3>
@@ -383,7 +374,7 @@ const Dashboard: React.FC = () => {
               Les 10 dernières courses enregistrées
             </p>
           </div>
-          <CheckCircle className="w-4 h-4 text-indigo-400" />
+          <CheckCircle className="w-4 h-4 text-brand" />
         </div>
 
         {loading ? (

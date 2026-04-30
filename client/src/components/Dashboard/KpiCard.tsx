@@ -2,7 +2,7 @@ import React from 'react';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-export type KpiColor = 'indigo' | 'emerald' | 'amber' | 'rose' | 'sky' | 'violet';
+export type KpiColor = 'brand' | 'emerald' | 'amber' | 'rose' | 'sky' | 'violet';
 
 interface KpiCardProps {
   title: string;
@@ -16,13 +16,13 @@ interface KpiCardProps {
   decimals?: number;
 }
 
-const colorMap: Record<KpiColor, { bg: string; icon: string; ring: string }> = {
-  indigo: { bg: 'bg-indigo-50', icon: 'text-indigo-600', ring: 'ring-indigo-100' },
-  emerald: { bg: 'bg-emerald-50', icon: 'text-emerald-600', ring: 'ring-emerald-100' },
-  amber: { bg: 'bg-amber-50', icon: 'text-amber-600', ring: 'ring-amber-100' },
-  rose: { bg: 'bg-rose-50', icon: 'text-rose-600', ring: 'ring-rose-100' },
-  sky: { bg: 'bg-sky-50', icon: 'text-sky-600', ring: 'ring-sky-100' },
-  violet: { bg: 'bg-violet-50', icon: 'text-violet-600', ring: 'ring-violet-100' },
+const colorMap: Record<KpiColor, { bg: string; icon: string; border: string }> = {
+  brand:   { bg: 'bg-brand/8',    icon: 'text-brand',       border: 'border-brand/15' },
+  emerald: { bg: 'bg-emerald-50', icon: 'text-emerald-600', border: 'border-emerald-100' },
+  amber:   { bg: 'bg-amber-50',   icon: 'text-amber-500',   border: 'border-amber-100' },
+  rose:    { bg: 'bg-rose-50',    icon: 'text-rose-500',    border: 'border-rose-100' },
+  sky:     { bg: 'bg-sky-50',     icon: 'text-sky-600',     border: 'border-sky-100' },
+  violet:  { bg: 'bg-violet-50',  icon: 'text-violet-600',  border: 'border-violet-100' },
 };
 
 const KpiCard: React.FC<KpiCardProps> = ({
@@ -41,28 +41,28 @@ const KpiCard: React.FC<KpiCardProps> = ({
 
   if (loading) {
     return (
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 animate-pulse">
-        <div className="h-3 bg-gray-200 rounded-full w-3/4 mb-4" />
-        <div className="h-7 bg-gray-200 rounded-full w-1/2 mb-3" />
-        <div className="h-3 bg-gray-200 rounded-full w-2/5" />
+      <div className="bg-white rounded-card border border-gray-100 shadow-card p-5 animate-pulse">
+        <div className="h-3 bg-gray-100 rounded-full w-3/4 mb-4" />
+        <div className="h-7 bg-gray-100 rounded-full w-1/2 mb-3" />
+        <div className="h-3 bg-gray-100 rounded-full w-2/5" />
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow duration-150">
+    <div className="bg-white rounded-card border border-gray-100 shadow-card p-5 hover:shadow-card-hover transition-shadow duration-150">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider truncate">
+          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider truncate">
             {title}
           </p>
-          <p className="mt-2 text-2xl font-bold text-gray-900 truncate">
+          <p className="mt-2 text-2xl font-bold text-gray-900 truncate leading-tight">
             {prefix && (
-              <span className="text-base font-medium text-gray-400 mr-1">{prefix}</span>
+              <span className="text-sm font-medium text-gray-400 mr-1">{prefix}</span>
             )}
             {display}
             {suffix && (
-              <span className="text-base font-medium text-gray-400 ml-1">{suffix}</span>
+              <span className="text-sm font-medium text-gray-400 ml-1">{suffix}</span>
             )}
           </p>
           {change !== undefined && (
@@ -83,11 +83,11 @@ const KpiCard: React.FC<KpiCardProps> = ({
                   <span className="text-xs text-gray-400">0%</span>
                 </>
               )}
-              <span className="text-xs text-gray-400">vs préc.</span>
+              <span className="text-xs text-gray-400 ml-0.5">vs préc.</span>
             </div>
           )}
         </div>
-        <div className={`${c.bg} ring-1 ${c.ring} p-2.5 rounded-xl flex-shrink-0`}>
+        <div className={`${c.bg} border ${c.border} p-2.5 rounded-xl flex-shrink-0`}>
           <Icon className={`w-5 h-5 ${c.icon}`} />
         </div>
       </div>
