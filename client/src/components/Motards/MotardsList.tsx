@@ -166,6 +166,7 @@ const MotardsList: React.FC = () => {
           </p>
         </div>
         <button
+            onClick={() => setShowForm(true)}
             disabled={loading}
             className="flex items-center gap-2 bg-brand hover:bg-brand-dark text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-brand transition-all duration-150 disabled:opacity-60 active:scale-95"
           >

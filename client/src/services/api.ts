@@ -126,35 +126,19 @@ export const clientsApi = {
     });
     return response.json();
   },
-  create: async (data: any) => {
-    const response = await fetch(`${API_BASE_URL}/clients`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...getAuthHeaders()
-      },
-      body: JSON.stringify(data)
+  toggle: async (numtel: string) => {
+    const response = await fetch(`${API_BASE_URL}/clients/${encodeURIComponent(numtel)}/toggle`, {
+      method: 'PATCH',
+      headers: getAuthHeaders(),
     });
     return response.json();
   },
-  update: async (id: string, data: any) => {
-    const response = await fetch(`${API_BASE_URL}/clients/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        ...getAuthHeaders()
-      },
-      body: JSON.stringify(data)
+  getCourses: async (numtel: string) => {
+    const response = await fetch(`${API_BASE_URL}/clients/${encodeURIComponent(numtel)}/courses`, {
+      headers: getAuthHeaders(),
     });
     return response.json();
   },
-  delete: async (id: string) => {
-    const response = await fetch(`${API_BASE_URL}/clients/${id}`, {
-      method: 'DELETE',
-      headers: getAuthHeaders()
-    });
-    return response.json();
-  }
 };
 
 // Courses API
